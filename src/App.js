@@ -36,8 +36,6 @@ class App extends React.Component {
     this.setState({
       todos: [...this.state.todos, newTodo]
     })
-
-    this.saveToStorage([...this.state.todos, newTodo]);
   }
 
   toggleCompleted = toggledTodo => {
@@ -49,8 +47,6 @@ class App extends React.Component {
     this.setState({
       todos: tempTodos
     })
-
-    this.saveToStorage(tempTodos);
   }
 
   clearCompleted = () => {
@@ -59,8 +55,11 @@ class App extends React.Component {
     this.setState({
       todos: filteredTodos
     })
+  }
 
-    this.saveToStorage(filteredTodos);
+  componentDidUpdate(){
+    this.saveToStorage(this.state.todos);
+    console.log(this.state.todos)
   }
 
   saveToStorage = (todosToSave) => {
