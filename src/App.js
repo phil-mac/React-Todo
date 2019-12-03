@@ -22,7 +22,9 @@ class App extends React.Component {
   constructor(){
     super();
     this.state = {
-      todos: this.getFromStorage()
+      todos: this.getFromStorage(),
+      searchText: '',
+      searchResults: this.getFromStorage()
     }
   }
 
@@ -59,6 +61,7 @@ class App extends React.Component {
 
   componentDidUpdate(){
     this.saveToStorage(this.state.todos);
+
     console.log(this.state.todos)
   }
 
@@ -74,10 +77,29 @@ class App extends React.Component {
     }
   }
 
+  setSearchText = newText => {
+    console.log('set search text');
+    this.setState({
+      searchText: newText,
+    })
+  }
+
+  // updateSearchResults = () => {
+  //   this.setState({
+  //     searchResults: this.state.todos.filter(item => item.task.toLowerCase().includes(this.state.searchText.toLowerCase()))
+  //   })
+  // }
+
   render() {
     return (
       <div>
-        <TodoList todos={this.state.todos} addTodo={this.addTodo} toggleCompleted={this.toggleCompleted} clearCompleted={this.clearCompleted}/>
+        <TodoList 
+        todos={this.state.todos.filter(item => item.task.toLowerCase().includes(this.state.searchText.toLowerCase()))} 
+        addTodo={this.addTodo} 
+        toggleCompleted={this.toggleCompleted} 
+        clearCompleted={this.clearCompleted} 
+        setSearchText={this.setSearchText}
+        />
       </div>
     );
   }

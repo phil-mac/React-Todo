@@ -10,13 +10,16 @@ class SearchForm extends React.Component{
 
     handleUpdate = e => {
         this.setState({
-            searchText = e.target.value
+            searchText: e.target.value
         })
+        this.props.setSearchText(e.target.value);
     }
 
     render(){
         return(
-            <input type='search' placeholder='Search' onChange={handeUpdate} value={this.state.searchText}/>
+            <input type='search' placeholder='Search' onChange={this.handleUpdate} value={this.state.searchText} className='searchInput'/>
         )
     }
 }
+
+export default SearchForm;

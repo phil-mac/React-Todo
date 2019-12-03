@@ -5,6 +5,7 @@ import React from 'react';
 
 import Todo from './Todo';
 import TodoForm from './TodoForm';
+import SearchForm from './SearchForm';
 
 class TodoList extends React.Component{
 
@@ -12,6 +13,7 @@ class TodoList extends React.Component{
         return(
             <div className='todoList'>
                 <h1>Could-Do List</h1>
+                <SearchForm setSearchText={this.props.setSearchText}/>
                 {
                     this.props.todos.map(item => {
                         return(
