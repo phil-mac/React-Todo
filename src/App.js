@@ -65,15 +65,12 @@ class App extends React.Component {
 
   saveToStorage = (todosToSave) => {
     localStorage.setItem("todos", JSON.stringify(todosToSave));
-    console.log('attempted save to storage');
   }
 
   getFromStorage = () => {
     if (typeof(Storage) !== "undefined" && JSON.parse(localStorage.getItem("todos")) !== null) {
-      console.log('DID find storage');
       return JSON.parse(localStorage.getItem("todos"));
     } else {
-      console.log('didnt find storage');
       return defaultTodos;
     }
   }

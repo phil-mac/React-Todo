@@ -15,29 +15,30 @@ class TodoForm extends React.Component {
     }
 
     handleSubmit = e => {
-        e.preventDefault();
-        this.props.addTodo(this.state.newTodo);
-        this.setState({
-            newTodo: ''
-        })
+        if (this.state.newTodo !== ''){
+            e.preventDefault();
+            this.props.addTodo(this.state.newTodo);
+            this.setState({
+                newTodo: ''
+            })
+        }
     }
-
-    // toggleShowCompleted = () => {
-    //     this.props.showCompleted();
-    // }
 
     render(){
         return(
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {/* <h3 >TodoForm</h3> */}
-                    <input type='text' placeholder='New Todo'  onChange={this.handleChange} value={this.state.newTodo}/>
-                    <button type='submit'>Add</button>
+                    <input 
+                    type='text' 
+                    placeholder='New Item'  
+                    onChange={this.handleChange} 
+                    value={this.state.newTodo}
+                    className='newTodoInput'
+                    />
+                    <button type='submit' className='customButton addButton'>Add</button>
                 </form>
-                <button onClick={this.props.clearCompleted}>Clear Completed</button>
+                <button onClick={this.props.clearCompleted} className='customButton clearButton'>Clear Completed</button>
             </div>
-            
-
         )
     }
 }
