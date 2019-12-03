@@ -2,7 +2,7 @@ import React from 'react';
 
 import TodoList from './components/TodoComponents/TodoList';
 
-const todos = [
+const defaultTodos = [
   {
     task: 'Unpack from Trip',
     id: 1528817077286,
@@ -22,7 +22,7 @@ class App extends React.Component {
   constructor(){
     super();
     this.state = {
-      todos: todos
+      todos: this.getFromStorage()
     }
   }
 
@@ -36,6 +36,8 @@ class App extends React.Component {
     this.setState({
       todos: [...this.state.todos, newTodo]
     })
+
+    this.saveToStorage([...this.state.todos, newTodo]);
   }
 
   toggleCompleted = toggledTodo => {
@@ -47,12 +49,33 @@ class App extends React.Component {
     this.setState({
       todos: tempTodos
     })
+
+    this.saveToStorage(tempTodos);
   }
 
   clearCompleted = () => {
+    const filteredTodos = this.state.todos.filter(item => item.completed === false);
+
     this.setState({
-      todos: this.state.todos.filter(item => item.completed === false)
+      todos: filteredTodos
     })
+
+    this.saveToStorage(filteredTodos);
+  }
+
+  saveToStorage = (todosToSave) => {
+    localStorage.setItem("todos", JSON.stringify(todosToSave));
+    console.log('attempted save to storage');
+  }
+
+  getFromStorage = () => {
+    if (typeof(Storage) !== "undefined" && JSON.parse(localStorage.getItem("todos")) !== null) {
+      console.log('DID find storage');
+      return JSON.parse(localStorage.getItem("todos"));
+    } else {
+      console.log('didnt find storage');
+      return defaultTodos;
+    }
   }
 
   render() {
